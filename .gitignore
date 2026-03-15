@@ -1,0 +1,36 @@
+# Gradle build outputs
+.gradle/
+build/
+app/build/
+
+# Local Android SDK configuration (machine-specific)
+local.properties
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+.navigation/
+captures/
+
+# Keystore files (never commit signing keys)
+*.jks
+*.keystore
+
+# Generated files
+app/src/main/assets/
+app/src/*/rs/finger*
+
+# Proguard mapping (generated during release builds)
+app/build/outputs/mapping/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment / secrets
+env
+*.env
+*.env.*
