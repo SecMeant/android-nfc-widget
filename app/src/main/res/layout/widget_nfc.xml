@@ -7,13 +7,13 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="8dp"
-    android:background="@drawable/widget_background_off">
+    android:background="@drawable/widget_background">
 
     <ImageView
         android:id="@+id/nfc_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_nfc_off"
+        android:src="@drawable/ic_nfc"
         android:contentDescription="@null" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/nfc_off"
+        android:text="@string/app_name"
         android:textColor="@color/widget_text"
         android:textSize="11sp"
         android:textStyle="bold"

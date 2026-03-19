@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import android.widget.RemoteViews
 
 class NfcToggleWidget : AppWidgetProvider() {
@@ -21,8 +22,6 @@ class NfcToggleWidget : AppWidgetProvider() {
     }
 
     companion object {
-        const val ACTION_TOGGLE = "dev.holz.nfcwidget.TOGGLE_NFC"
-
         fun updateAllWidgets(context: Context) {
             val manager = AppWidgetManager.getInstance(context)
             val ids = manager.getAppWidgetIds(
@@ -38,32 +37,20 @@ class NfcToggleWidget : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-            val nfcEnabled = NfcHelper.isNfcEnabled(context)
-            val nfcAvailable = NfcHelper.isNfcAvailable(context)
-
             val views = RemoteViews(context.packageName, R.layout.widget_nfc)
 
-            if (!nfcAvailable) {
-                views.setImageViewResource(R.id.nfc_icon, R.drawable.ic_nfc_off)
-                views.setTextViewText(R.id.nfc_label, context.getString(R.string.nfc_unavailable))
-                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_background_off)
-            } else if (nfcEnabled) {
-                views.setImageViewResource(R.id.nfc_icon, R.drawable.ic_nfc_on)
-                views.setTextViewText(R.id.nfc_label, context.getString(R.string.nfc_on))
-                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_background_on)
-            } else {
-                views.setImageViewResource(R.id.nfc_icon, R.drawable.ic_nfc_off)
-                views.setTextViewText(R.id.nfc_label, context.getString(R.string.nfc_off))
-                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_background_off)
+            views.setImageViewResource(R.id.nfc_icon, R.drawable.ic_nfc)
+            views.setTextViewText(R.id.nfc_label, context.getString(R.string.app_name))
+            views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_background)
+
+            val intent = Intent(Settings.ACTION_NFC_SETTINGS).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
 
-            val toggleIntent = Intent(context, WidgetClickReceiver::class.java).apply {
-                action = ACTION_TOGGLE
-            }
-            val pendingIntent = PendingIntent.getBroadcast(
+            val pendingIntent = PendingIntent.getActivity(
                 context,
                 0,
-                toggleIntent,
+                intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             views.setOnClickPendingIntent(R.id.widget_root, pendingIntent)

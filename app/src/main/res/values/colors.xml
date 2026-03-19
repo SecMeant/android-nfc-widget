@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="nfc_on_background">#FF1B873A</color>
-    <color name="nfc_off_background">#FF424242</color>
+    <color name="nfc_background">#FF424242</color>
     <color name="widget_text">#FFFFFFFF</color>
-    <color name="widget_icon_on">#FFFFFFFF</color>
-    <color name="widget_icon_off">#FFB0B0B0</color>
+    <color name="widget_icon">#FFFFFFFF</color>
 </resources>
