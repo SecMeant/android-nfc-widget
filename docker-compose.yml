@@ -1,0 +1,15 @@
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mount the current directory to /app so the built APKs are available on the host
+      - .:/app
+      # Cache gradle downloads and daemon to speed up subsequent builds
+      - gradle-cache:/root/.gradle
+    # Run the assembleDebug task by default
+    command: ./gradlew assembleDebug
+
+volumes:
+  gradle-cache:
